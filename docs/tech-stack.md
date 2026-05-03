@@ -38,7 +38,7 @@ Web アプリ本体の設計は **`docs/superpowers/specs/2026-05-03-discog-revi
 
 Pinned versions, CI policy, Dependabot, and hook behavior: **[docs/harness-decisions.md](./harness-decisions.md)** (update when those change).
 
-Summary: **Node 25.x** (pin via `.node-version`; not an LTS release line), **pnpm via Corepack + `packageManager` + `corepack prepare`**, default branch **main**, Biome + knip + tests in CI. Lefthook on pre-commit; **`prepare` installs hooks only when not in CI and `.git` exists**.
+Summary: **Node 25.6.x** (patch pin via `.node-version`; not an LTS release line), **pnpm via Corepack + `packageManager` + `corepack prepare`**, default branch **main**, Biome + knip + tests in CI. Lefthook on pre-commit; **`prepare` installs hooks only when not in CI and `.git` exists**.
 
 ## Specs and plans
 

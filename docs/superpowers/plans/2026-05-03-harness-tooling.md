@@ -4,11 +4,11 @@
 
 **Goal:** Create a working TypeScript harness with pnpm, Biome, Lefthook, Vitest, fast-check, knip, and GitHub Actions CI matching `docs/superpowers/specs/2026-05-03-harness-and-tooling-design.md` and `docs/harness-decisions.md` (no Vite).
 
-> **Note:** Keep the Node major in this plan aligned with **`.node-version`** (currently **25**). When bumping Node, update embedded values here together with `package.json` → `engines`, `@types/node`, and **`mise.toml`** (if present).
+> **Note:** Keep this plan aligned with **`.node-version`** (currently **25.6.0**). When bumping Node, update embedded values together with `package.json` → `engines`, **exact** `@types/node` patch, and lockfile. Do not add a second `node` pin in `mise.toml`—mise reads `.node-version`.
 
 **Architecture:** Single Node package under repository root. Source in `src/` with one exported helper for tests. Vitest runs co-located `*.test.ts`. Biome owns format/lint; `tsc --noEmit` is type truth. Knip validates unused files/deps. Lefthook runs Biome on staged files only.
 
-**Tech Stack:** Node 25.x, pnpm 10.33.2 (pinned via `packageManager`), TypeScript 6.0.3, @biomejs/biome 2.4.14, lefthook 2.1.6, vitest 4.1.5, fast-check 4.7.0, knip 6.11.0, @types/node 25.x
+**Tech Stack:** Node 25.6.x, pnpm 10.33.2 (pinned via `packageManager`), TypeScript 6.0.3, @biomejs/biome 2.4.14, lefthook 2.1.6, vitest 4.1.5, fast-check 4.7.0, knip 6.11.0, `@types/node` 25.6.0 (exact, matches `.node-version`)
 
 ---
 
@@ -17,8 +17,7 @@
 | Path | Responsibility |
 |------|------------------|
 | `package.json` | Scripts (`check`, `typecheck`, `test`, `knip`, `prepare`), `engines`, `packageManager`, dependencies |
-| `.node-version` | Pin Node 25 for local + `setup-node` |
-| `mise.toml` | (Optional) Local tool versions; keep `node` in sync with `.node-version` / `engines` |
+| `.node-version` | Pin Node **patch** (e.g. 25.6.0) for local + `setup-node`; single source of truth for mise |
 | `tsconfig.json` | `strict`, include `src` and `vitest.config.ts` |
 | `vitest.config.ts` | Vitest `node` environment, `src/**/*.test.ts` |
 | `biome.json` | Biome formatter/linter project config |
@@ -65,7 +64,7 @@ Create `.node-version` with exactly (pin patch so CI/mise match `@types/node`; c
 
 ```bash
 git add .gitignore .node-version
-git commit -m "chore: add gitignore and Node 25 pin"
+git commit -m "chore: add gitignore and Node 25.6 pin"
 ```
 
 ---
@@ -110,7 +109,7 @@ Run:
 ```bash
 corepack enable
 corepack prepare pnpm@10.33.2 --activate
-pnpm add -D typescript@6.0.3 @types/node@25 @biomejs/biome@2.4.14 lefthook@2.1.6 vitest@4.1.5 fast-check@4.7.0 knip@6.11.0
+pnpm add -D typescript@6.0.3 @types/node@25.6.0 @biomejs/biome@2.4.14 lefthook@2.1.6 vitest@4.1.5 fast-check@4.7.0 knip@6.11.0
 ```
 
 Expected: `pnpm-lock.yaml` created, `package.json` updated with `devDependencies`.
