@@ -52,6 +52,7 @@ Fail the job on any non-zero exit; no deployment steps.
 ## Documentation conventions
 
 - `docs/tech-stack.md` — living summary of runtime/tooling intent for contributors (updated when stack changes).
+- `docs/harness-decisions.md` — pinned Node/pnpm, GitHub/CI policy, tool behavior defaults (Dependabot, hooks).
 - Feature and harness specs live under `docs/superpowers/specs/` with naming `YYYY-MM-DD-<topic>-design.md`.
 - Implementation plans (after this spec is approved for implementation work) go under `docs/superpowers/plans/` per project convention.
 

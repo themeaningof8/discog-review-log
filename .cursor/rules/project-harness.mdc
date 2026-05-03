@@ -1,0 +1,23 @@
+---
+description: Project context, docs, and harness constraints for discog-review-log
+alwaysApply: true
+---
+
+# discog-review-log
+
+Before changing tooling or layout, read **`docs/tech-stack.md`** and **`docs/harness-decisions.md`**. Feature-level design lives in **`docs/superpowers/specs/`**.
+
+## Tooling (target state)
+
+- Package manager: **pnpm only** (Corepack + `packageManager` pin). Do not use `npm install` or yarn for dependencies.
+- Quality: **Biome** (format/lint), **TypeScript strict**, **Lefthook**, **Vitest + fast-check**, **knip**, **GitHub Actions**.
+- **No Vite** in the current harness phase unless the user updates specs.
+
+## Scope notes
+
+- **FSD / Steiger** are not adopted yet; do not introduce those layouts or tools without an explicit spec update.
+- Prefer matching scripts and CI order documented in **`docs/superpowers/specs/2026-05-03-harness-and-tooling-design.md`** once implemented.
+
+## Edits
+
+Keep changes minimal and aligned with existing docs. After altering pins or policy, update **`docs/harness-decisions.md`** and **`docs/tech-stack.md`** as needed.
