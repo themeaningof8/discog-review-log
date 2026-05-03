@@ -3,7 +3,7 @@
 ## First reads
 
 - `docs/tech-stack.md` — stack and phase (harness-first; **no Vite** unless specs change).
-- `docs/harness-decisions.md` — Node 22, pnpm pins, CI/GitHub defaults, Biome/knip/hooks policy.
+- `docs/harness-decisions.md` — Node 25, pnpm pins, CI/GitHub defaults, Biome/knip/hooks policy.
 - `docs/superpowers/specs/` — design specs; naming `YYYY-MM-DD-<topic>-design.md`.
 
 ## Rules

@@ -26,7 +26,7 @@ Quality and automation first; **no browser bundler (Vite 等) in this phase.**
 
 Pinned versions, CI policy, Dependabot, and hook behavior: **[docs/harness-decisions.md](./harness-decisions.md)** (update when those change).
 
-Summary: **Node 22 LTS**, **pnpm via Corepack + `packageManager` + `corepack prepare`**, default branch **main**, Biome + knip + tests in CI. Lefthook on pre-commit; **`prepare` installs hooks only when not in CI and `.git` exists**.
+Summary: **Node 25.x** (pin via `.node-version`; not an LTS release line), **pnpm via Corepack + `packageManager` + `corepack prepare`**, default branch **main**, Biome + knip + tests in CI. Lefthook on pre-commit; **`prepare` installs hooks only when not in CI and `.git` exists**.
 
 ## Specs and plans
 

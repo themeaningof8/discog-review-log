@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@10.33.2",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=25 <26"
   },
   "scripts": {
     "prepare": "node scripts/install-git-hooks.mjs",
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
-    "@types/node": "^22.19.17",
+    "@types/node": "^25.6.0",
     "fast-check": "4.7.0",
     "knip": "6.11.0",
     "lefthook": "2.1.6",
