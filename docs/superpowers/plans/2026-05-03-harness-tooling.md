@@ -4,6 +4,8 @@
 
 **Goal:** Create a working TypeScript harness with pnpm, Biome, Lefthook, Vitest, fast-check, knip, and GitHub Actions CI matching `docs/superpowers/specs/2026-05-03-harness-and-tooling-design.md` and `docs/harness-decisions.md` (no Vite).
 
+> **Note:** The repository now pins **Node 25.x** (see `.node-version`, `package.json` → `engines`, and current `docs/harness-decisions.md`). Embedded steps below still reflect the original bootstrap (Node 22); follow the live pins when executing commands.
+
 **Architecture:** Single Node package under repository root. Source in `src/` with one exported helper for tests. Vitest runs co-located `*.test.ts`. Biome owns format/lint; `tsc --noEmit` is type truth. Knip validates unused files/deps. Lefthook runs Biome on staged files only.
 
 **Tech Stack:** Node 22.x, pnpm 10.33.2 (pinned via `packageManager`), TypeScript 6.0.3, @biomejs/biome 2.4.14, lefthook 2.1.6, vitest 4.1.5, fast-check 4.7.0, knip 6.11.0, @types/node 22.x

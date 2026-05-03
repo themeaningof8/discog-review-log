@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- **Node 22.x** (see `.node-version` and `package.json` → `engines`). The repository is not tested on Node 23+; other versions may show pnpm’s **Unsupported engine** warning.
+- **Node 25.x** (see `.node-version` and `package.json` → `engines`). Other majors may show pnpm’s **Unsupported engine** warning.
 - [Corepack](https://nodejs.org/api/corepack.html) (ships with Node; run `corepack enable` once per machine if needed).
 - **pnpm** version pinned in `package.json` → `packageManager` (activate with Corepack; do not rely on a global pnpm that might be older).
 
@@ -28,8 +28,8 @@ Individual scripts: `pnpm run check`, `pnpm run check:ci`, `pnpm run steiger`, `
 
 ## Troubleshooting
 
-- **`WARN Unsupported engine: wanted: {"node":">=22 <23"} (current: ...)`**  
-  Switch to Node **22.x** (e.g. `mise use node@22`, `nvm use 22`, or install from nodejs.org). Widen `engines` only if the team explicitly supports other majors (then update `.node-version`, CI, and `docs/harness-decisions.md`).
+- **`WARN Unsupported engine: wanted: {"node":">=25 <26"} (current: ...)`**  
+  Switch to Node **25.x** (e.g. `mise use node@25`, `nvm use 25`, or install from nodejs.org). Widen `engines` only if the team explicitly supports other majors (then update `.node-version`, CI, and `docs/harness-decisions.md`).
 
 - **pnpm version mismatch**  
   Run `corepack prepare pnpm@10.33.2 --activate` and confirm `pnpm -v` matches the `packageManager` field.

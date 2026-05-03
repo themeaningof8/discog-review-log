@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@10.33.2",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=25 <26"
   },
   "scripts": {
     "prepare": "node scripts/install-git-hooks.mjs",
@@ -40,7 +40,7 @@
     "@tailwindcss/vite": "4.2.4",
     "@tiptap/react": "3.13.0",
     "@tiptap/starter-kit": "3.13.0",
-    "@types/node": "^22.19.17",
+    "@types/node": "25.6.0",
     "@types/react": "19.2.5",
     "@types/react-dom": "19.2.3",
     "@types/sanitize-html": "^2.16.1",
