@@ -168,7 +168,7 @@ authRoutes.post(
       name: data.name,
       passwordHash,
       role,
-      invitedBy: null,
+      invitedBy: inv.invitedBy ?? null,
     });
     await db
       .update(invitations)
@@ -220,7 +220,11 @@ authRoutes.post(
   requireAdmin,
   zValidator("form", inviteEmailSchema),
   async (c) => {
+    if (c.req.header("X-Requested-With") !== "XMLHttpRequest") {
+      return c.text("Forbidden", 403);
+    }
     const db = c.get("db");
+    const currentUser = c.get("user");
     const { email } = c.req.valid("form");
     const id = crypto.randomUUID();
     const token = hexToken();
@@ -231,6 +235,7 @@ authRoutes.post(
       email,
       expiresAt,
       usedAt: null,
+      invitedBy: currentUser?.id ?? null,
     });
     const url = new URL(c.req.url);
     const base = `${url.protocol}//${url.host}`;

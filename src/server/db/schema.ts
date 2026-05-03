@@ -27,6 +27,7 @@ export const invitations = sqliteTable("invitations", {
   email: text("email").notNull(),
   expiresAt: integer("expires_at", { mode: "timestamp_ms" }).notNull(),
   usedAt: integer("used_at", { mode: "timestamp_ms" }),
+  invitedBy: text("invited_by").references((): AnySQLiteColumn => users.id),
 });
 
 export const releases = sqliteTable("releases", {

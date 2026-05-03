@@ -19,8 +19,7 @@ export const sessionMiddleware = createMiddleware<{
 
   const secret = c.env.APP_SECRET;
   if (!secret) {
-    await next();
-    return;
+    return c.text("APP_SECRET is not configured", 500);
   }
 
   const raw = getCookie(c, "drl_session");

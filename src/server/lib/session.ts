@@ -20,7 +20,7 @@ export async function createSession<E extends { Bindings: Env }>(
     expirationTtl: SESSION_TTL_SEC,
   });
   const secret = c.env.APP_SECRET;
-  if (!secret) return;
+  if (!secret) throw new Error("APP_SECRET is not configured");
   const token = await signSessionCookie(sessionId, secret);
   const host = new URL(c.req.url).hostname;
   const secure = host !== "localhost" && host !== "127.0.0.1";
