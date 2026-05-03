@@ -233,11 +233,12 @@ git commit -m "build: add Vite config with Cloudflare and Inertia plugins"
 - Create: `src/client/pages/Home.tsx`
 - **Step 1: Implement `src/server/ssr.tsx`**
 
-Adapt upstream `[app/ssr.tsx](https://github.com/yusukebe/hono-inertia-example/blob/main/app/ssr.tsx)`: change the glob to `import.meta.glob<{ default: ResolvedComponent }>("../client/pages/**/*.tsx")` and resolve keys as `../client/pages/${name}.tsx`. Keep `createInertiaApp`, `renderToString`, and `resolve` logic identical to upstream so `renderPage(page)` returns the same shape `root-view.tsx` expects.
+Adapt upstream [`app/ssr.tsx`](https://github.com/yusukebe/hono-inertia-example/blob/main/app/ssr.tsx): change the glob to `import.meta.glob<{ default: ResolvedComponent }>("../client/pages/**/*.tsx")` and resolve keys as `` `../client/pages/${name}.tsx` ``. Keep `createInertiaApp`, `renderToString`, and `resolve` logic identical to upstream so `renderPage(page)` returns the same shape `root-view.tsx` expects.
 
 - **Step 2: Implement `src/server/root-view.tsx`**
 
-Adapt upstream `[app/root-view.tsx](https://github.com/yusukebe/hono-inertia-example/blob/main/app/root-view.tsx)` verbatim except import paths. Export `rootView` as `RootView` from `@hono/inertia`. Include `Link`, `Script`, `ViteClient` from `vite-ssr-components/react`.
+Adapt upstream [`app/root-view.tsx`](https://github.com/yusukebe/hono-inertia-example/blob/main/app/root-view.tsx) verbatim except import paths. Export `rootView` as `RootView` from `@hono/inertia`. Include `Link`, `Script`, `ViteClient` from `vite-ssr-components/react`.
+
 
 - **Step 3: Implement `src/server/app.ts`**
 
@@ -443,6 +444,7 @@ git commit -m "feat(server): bind D1 drizzle client to request context"
 
 - Create: `src/server/lib/password.ts`
 - Create: `src/server/lib/password.test.ts`
+
 - **Step 1: Implement `hashPassword` / `verifyPassword` with Web Crypto PBKDF2**
 
 Workers-compatible (no `Buffer`, no WASM). Stored string: `pbkdf2$sha256$<iterations>$<saltB64url>$<keyB64url>`.
@@ -517,6 +519,7 @@ export async function verifyPassword(plain: string, stored: string): Promise<boo
 ```
 
 - **Step 2: Write Vitest** in `src/server/lib/password.test.ts` importing `./password.js`.
+
 - **Step 3: Run tests**
 
 ```bash
@@ -591,6 +594,7 @@ git commit -m "feat(security): add review HTML allowlist sanitizer"
 
 - Create: `src/server/lib/session-cookie.ts`
 - Create: `src/server/middleware/session.ts`
+
 - **Step 1: Session payload in KV**
 
 Key: random id (`crypto.randomUUID()`). Value: JSON `{"userId":"…","role":"writer"|"admin","expiresAt":<unix ms>}`. `SESSIONS.put(id, json, { expirationTtl: seconds })` with TTL e.g. 30 days.
