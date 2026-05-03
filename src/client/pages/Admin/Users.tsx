@@ -46,7 +46,10 @@ export default function AdminUsers(
                 method: "POST",
                 body: fd,
                 credentials: "same-origin",
-                headers: { Accept: "application/json" },
+                headers: {
+                  Accept: "application/json",
+                  "X-Requested-With": "XMLHttpRequest",
+                },
               });
               if (!res.ok) {
                 setInviteUrl(`Error: ${res.status}`);
