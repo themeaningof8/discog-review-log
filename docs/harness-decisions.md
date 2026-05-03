@@ -6,7 +6,7 @@
 
 | 項目 | 推奨 |
 |------|------|
-| Node | **25.x** — `.node-version` でメジャーを pin（例: `25`）。要件により Current を採用；組織方針で LTS 固定が必要なら別途見直し |
+| Node | **25.x** — `.node-version` で **メジャーまたはパッチ**を pin。`@types/node` のマイナーと `mise.toml` / 実ランタイムを取り違えないよう、パッチを上げるときは **両方**合わせる。要件により Current を採用；組織方針で LTS 固定が必要なら別途見直し |
 | `engines` | `package.json` に `"node": ">=25 <26"` など、上記と整合させる |
 | `mise.toml` | リポジトリに置く場合は **`node` の版を `.node-version` / `engines` と揃える**（mise 利用者の取り違い防止） |
 | pnpm | **Corepack** + `package.json` の `packageManager` に **フルバージョン**（例 `pnpm@10.x.x` — 導入時に `pnpm -v` で確定）。ローカルでは `corepack prepare pnpm@<pin> --activate` を README に合わせて実行する |

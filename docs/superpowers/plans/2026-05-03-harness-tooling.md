@@ -55,10 +55,10 @@ dist/
 
 - [ ] **Step 2: Add `.node-version`**
 
-Create `.node-version` with exactly:
+Create `.node-version` with exactly (pin patch so CI/mise match `@types/node`; currently):
 
 ```
-25
+25.6.0
 ```
 
 - [ ] **Step 3: Commit**
