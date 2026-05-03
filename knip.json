@@ -1,5 +1,13 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "entry": ["src/index.ts"],
-  "project": ["src/**/*.ts", "scripts/**/*.mjs"]
+  "entry": [
+    "src/client/app/index.tsx",
+    "src/client/pages/**/*.tsx",
+    "src/client/features/review-editor/index.ts",
+    "src/client/widgets/site-nav/index.ts",
+    "steiger.config.ts"
+  ],
+  "project": ["src/**/*.ts", "src/**/*.tsx", "scripts/**/*.mjs"],
+  "ignore": ["src/client/pages.gen.ts"],
+  "ignoreDependencies": ["@hono/react-renderer", "tailwindcss"]
 }

@@ -1,0 +1,21 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "discog-review-log",
+  "compatibility_date": "2025-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "./src/server/worker.ts",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "discog-review-log",
+      "database_id": "local-dev-placeholder",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS",
+      "id": "local-dev-kv-placeholder"
+    }
+  ]
+}

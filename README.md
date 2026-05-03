@@ -22,9 +22,9 @@ pnpm install
 pnpm run validate
 ```
 
-Runs Biome (`ci` mode), TypeScript `noEmit`, Vitest, and knip — same gates as CI.
+Runs Biome (`ci` mode), Steiger (FSD under `src/client`), TypeScript `noEmit`, Vitest, and knip — same gates as CI.
 
-Individual scripts: `pnpm run check`, `pnpm run check:ci`, `pnpm run typecheck`, `pnpm run test`, `pnpm run knip`.
+Individual scripts: `pnpm run check`, `pnpm run check:ci`, `pnpm run steiger`, `pnpm run typecheck`, `pnpm run test`, `pnpm run knip`.
 
 ## Troubleshooting
 

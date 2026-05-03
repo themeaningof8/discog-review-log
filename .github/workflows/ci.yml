@@ -36,8 +36,14 @@ jobs:
       - name: Biome (CI)
         run: pnpm run check:ci
 
+      - name: Steiger (FSD — src/client)
+        run: pnpm run steiger
+
       - name: Typecheck
         run: pnpm run typecheck
+
+      - name: Vite build (Workers client bundles)
+        run: pnpm run build
 
       - name: Test
         run: pnpm run test
