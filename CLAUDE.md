@@ -2,7 +2,7 @@
 
 ## First reads
 
-- `docs/tech-stack.md` — stack and phase (harness-first; **no Vite** unless specs change).
+- `docs/tech-stack.md` — quality baseline + **application runtime** (Vite / Workers / Hono / Inertia per **`2026-05-03-discog-review-log-design.md`**).
 - `docs/harness-decisions.md` — Node 25, pnpm pins, CI/GitHub defaults, Biome/knip/hooks policy.
 - `docs/superpowers/specs/` — design specs; naming `YYYY-MM-DD-<topic>-design.md`.
 

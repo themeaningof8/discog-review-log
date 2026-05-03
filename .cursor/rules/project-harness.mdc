@@ -11,7 +11,7 @@ Before changing tooling or layout, read **`docs/tech-stack.md`** and **`docs/har
 
 - Package manager: **pnpm only** (Corepack + `packageManager` pin). Do not use `npm install` or yarn for dependencies.
 - Quality: **Biome** (format/lint), **TypeScript strict**, **Lefthook**, **Vitest + fast-check**, **knip**, **GitHub Actions**.
-- **No Vite** in the current harness phase unless the user updates specs.
+- **Harness-only milestone** avoided Vite; the **application** stack adopts **Vite** per **`docs/superpowers/specs/2026-05-03-discog-review-log-design.md`**. When in doubt, follow that spec plus **`docs/tech-stack.md`**.
 
 ## Scope notes
 
