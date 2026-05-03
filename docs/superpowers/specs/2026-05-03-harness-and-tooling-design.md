@@ -12,15 +12,17 @@ Establish a reproducible quality baseline before application features: package m
 
 ## Stack decisions
 
-| Concern | Choice | Notes |
-|--------|--------|--------|
-| Package manager | pnpm | Lockfile + CI cache; `packageManager` in `package.json` with Corepack. |
-| Language | TypeScript, `strict` | `tsc --noEmit` in CI and optionally locally. |
-| Format / lint | Biome | Single tool; `biome.json` at repo root. |
-| Git hooks | Lefthook | `lefthook.yml`; **no Husky / lint-staged** for this design. |
-| Unit / PBT | Vitest + fast-check | Vitest runs tests; fast-check for property-based cases. |
-| Dead code / deps | knip | Run in CI; configuration tuned as `src/` grows. |
-| CI | GitHub Actions | `push` and `pull_request` to default branch (adjust name if needed). |
+
+| Concern          | Choice               | Notes                                                                  |
+| ---------------- | -------------------- | ---------------------------------------------------------------------- |
+| Package manager  | pnpm                 | Lockfile + CI cache; `packageManager` in `package.json` with Corepack. |
+| Language         | TypeScript, `strict` | `tsc --noEmit` in CI and optionally locally.                           |
+| Format / lint    | Biome                | Single tool; `biome.json` at repo root.                                |
+| Git hooks        | Lefthook             | `lefthook.yml`; **no Husky / lint-staged** for this design.            |
+| Unit / PBT       | Vitest + fast-check  | Vitest runs tests; fast-check for property-based cases.                |
+| Dead code / deps | knip                 | Run in CI; configuration tuned as `src/` grows.                        |
+| CI               | GitHub Actions       | `push` and `pull_request` to default branch (adjust name if needed).   |
+
 
 ## Repository layout (target)
 
@@ -69,11 +71,13 @@ Fail the job on any non-zero exit; no deployment steps.
 
 ## Risks and mitigations
 
-| Risk | Mitigation |
-|------|------------|
+
+| Risk                                         | Mitigation                                                                 |
+| -------------------------------------------- | -------------------------------------------------------------------------- |
 | knip false positives or noisy unused exports | Adjust knip config (tags, entry files, ignore patterns) as codebase grows. |
-| Biome vs TypeScript overlap | Use Biome for style/lint; `tsc` remains source of truth for types. |
-| fast-check + Vitest wiring | Keep one smoke property test in repo to catch breakage. |
+| Biome vs TypeScript overlap                  | Use Biome for style/lint; `tsc` remains source of truth for types.         |
+| fast-check + Vitest wiring                   | Keep one smoke property test in repo to catch breakage.                    |
+
 
 ## Approval
 
