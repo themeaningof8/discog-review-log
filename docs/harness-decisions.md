@@ -6,8 +6,9 @@
 
 | 項目 | 推奨 |
 |------|------|
-| Node | **22.x（Active LTS）** — 採用時点の最新マイナー／パッチに pin（例: `.node-version` に `22.14.0`） |
-| `engines` | `package.json` に `"node": ">=22 <23"` など、上記と整合させる |
+| Node | **25.6.x** — `.node-version` で **パッチまで** pin（例 `25.6.0`）。`@types/node` は **同じパッチ**に固定し、型とランタイムの API 面を揃える。要件により Current を採用；組織方針で LTS 固定が必要なら別途見直し |
+| `engines` | `package.json` に **メジャー帯**（例 `"node": ">=25 <26"`）。**実際に合わせるパッチ**は `.node-version` と固定の `@types/node` |
+| mise | **`mise.toml` で `node` を二重に pin しない**（単一の情報源は `.node-version`）。mise は標準で `.node-version` を拾う |
 | pnpm | **Corepack** + `package.json` の `packageManager` に **フルバージョン**（例 `pnpm@10.x.x` — 導入時に `pnpm -v` で確定）。ローカルでは `corepack prepare pnpm@<pin> --activate` を README に合わせて実行する |
 | ロックファイル | `pnpm-lock.yaml` をコミットし、CI は `--frozen-lockfile` |
 
@@ -41,7 +42,7 @@
 
 | 項目 | 推奨 |
 |------|------|
-| README | Node 22 + Corepack + `corepack prepare` で pnpm pin、`pnpm install` → `pnpm run validate`。**Unsupported engine** 時は Node 22 へ切り替える旨を記載 |
+| README | Node 25 + Corepack + `corepack prepare` で pnpm pin、`pnpm install` → `pnpm run validate`。**Unsupported engine** 時は Node 25 へ切り替える旨を記載 |
 | 変更時 | ピン止めやポリシーが変わったら **本ファイルと `tech-stack.md` を同期** |
 
 ## 任意（あとからでよい）
