@@ -8,7 +8,7 @@
 |------|------|
 | Node | **22.x（Active LTS）** — 採用時点の最新マイナー／パッチに pin（例: `.node-version` に `22.14.0`） |
 | `engines` | `package.json` に `"node": ">=22 <23"` など、上記と整合させる |
-| pnpm | **Corepack** + `package.json` の `packageManager` に **フルバージョン**（例 `pnpm@10.x.x` — 導入時に `pnpm -v` で確定） |
+| pnpm | **Corepack** + `package.json` の `packageManager` に **フルバージョン**（例 `pnpm@10.x.x` — 導入時に `pnpm -v` で確定）。ローカルでは `corepack prepare pnpm@<pin> --activate` を README に合わせて実行する |
 | ロックファイル | `pnpm-lock.yaml` をコミットし、CI は `--frozen-lockfile` |
 
 ## Git / GitHub
@@ -28,6 +28,7 @@
 | knip | CI で実行し **失敗でブロック**。最初にベースラインを緑にし、ノイズは **設定で解消**（警告オンリーに逃げない） |
 | Vitest / fast-check | CI で `vitest run` を必須。**ダミーでも 1 テスト**を残し、テストランナー破綻に気づけるようにする |
 | Lefthook | **pre-commit は Biome のみ**（高速）。knip・全テストは **CI** |
+| `pnpm install` の `prepare` | **`CI` または `.git` が無い環境では Lefthook をインストールしない**（コンテナ・ tarball 利用時の失敗を避ける） |
 
 ## 依存更新
 
@@ -40,7 +41,7 @@
 
 | 項目 | 推奨 |
 |------|------|
-| README | Node 22 + Corepack + pnpm、`pnpm install` → 検証用スクリプト（実装後の名前に合わせる）を **短く記載** |
+| README | Node 22 + Corepack + `corepack prepare` で pnpm pin、`pnpm install` → `pnpm run validate`。**Unsupported engine** 時は Node 22 へ切り替える旨を記載 |
 | 変更時 | ピン止めやポリシーが変わったら **本ファイルと `tech-stack.md` を同期** |
 
 ## 任意（あとからでよい）
