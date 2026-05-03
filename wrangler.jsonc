@@ -4,6 +4,8 @@
   "compatibility_date": "2025-11-01",
   "compatibility_flags": ["nodejs_compat"],
   "main": "./src/server/worker.ts",
+  // Replace database_id / KV id with real IDs from `wrangler d1 create` / dashboard before remote deploy.
+  // Local `wrangler dev` overrides these with `.wrangler/` state.
   "d1_databases": [
     {
       "binding": "DB",

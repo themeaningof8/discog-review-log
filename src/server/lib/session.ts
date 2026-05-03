@@ -9,6 +9,10 @@ export async function createSession<E extends { Bindings: Env }>(
   c: Context<E>,
   user: { id: string; role: "writer" | "admin" },
 ): Promise<void> {
+  const secret = c.env.APP_SECRET;
+  if (!secret) {
+    throw new Error("APP_SECRET is not configured");
+  }
   const sessionId = crypto.randomUUID();
   const expiresAt = Date.now() + SESSION_TTL_SEC * 1000;
   const record: SessionRecord = {
@@ -19,8 +23,6 @@ export async function createSession<E extends { Bindings: Env }>(
   await c.env.SESSIONS.put(sessionId, JSON.stringify(record), {
     expirationTtl: SESSION_TTL_SEC,
   });
-  const secret = c.env.APP_SECRET;
-  if (!secret) throw new Error("APP_SECRET is not configured");
   const token = await signSessionCookie(sessionId, secret);
   const host = new URL(c.req.url).hostname;
   const secure = host !== "localhost" && host !== "127.0.0.1";

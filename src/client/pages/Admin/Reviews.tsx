@@ -1,6 +1,7 @@
 import { SiteNav } from "@client/widgets/site-nav";
 import { Link } from "@inertiajs/react";
 import type { AuthProps } from "@shared/auth";
+import { formatCalendarDateTime } from "@shared/formatDate";
 
 export default function AdminReviews(
   props: AuthProps & {
@@ -52,7 +53,7 @@ export default function AdminReviews(
                 </td>
                 <td className="py-3 text-neutral-500">
                   {it.publishedAt
-                    ? new Date(it.publishedAt).toLocaleString()
+                    ? formatCalendarDateTime(it.publishedAt)
                     : "—"}
                 </td>
               </tr>

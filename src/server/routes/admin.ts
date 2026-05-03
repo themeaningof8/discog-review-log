@@ -1,5 +1,5 @@
 import { zValidator } from "@hono/zod-validator";
-import { desc, eq } from "drizzle-orm";
+import { count, desc, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import * as z from "zod";
 import type { Db } from "../db/client";
@@ -80,6 +80,23 @@ adminRoutes.post(
     const db = c.get("db");
     const id = c.req.param("id");
     const { role } = c.req.valid("form");
+    const [targetUser] = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, id))
+      .limit(1);
+    if (!targetUser) {
+      return c.text("Not found", 404);
+    }
+    if (targetUser.role === "admin" && role === "writer") {
+      const [{ n: adminCount }] = await db
+        .select({ n: count() })
+        .from(users)
+        .where(eq(users.role, "admin"));
+      if (adminCount <= 1) {
+        return c.text("Cannot demote the last admin", 400);
+      }
+    }
     await db.update(users).set({ role }).where(eq(users.id, id));
     return c.redirect("/admin/users");
   },
@@ -88,6 +105,7 @@ adminRoutes.post(
 adminRoutes.get("/admin/tags", async (c) => {
   const db = c.get("db");
   const rows = await db.select().from(tags).orderBy(tags.name);
+  const err = c.req.query("err");
   return c.render(
     "Admin/Tags",
     withAuth(c, {
@@ -96,22 +114,35 @@ adminRoutes.get("/admin/tags", async (c) => {
         slug: t.slug,
         name: t.name,
       })),
+      error:
+        err === "slug"
+          ? ("A tag with that slug already exists." as const)
+          : null,
     }),
   );
 });
 
 const tagSchema = z.object({
-  name: z.string().min(1),
-  slug: z.string().min(1),
+  name: z.string().trim().min(1),
+  slug: z.string().trim().min(1),
 });
 
 adminRoutes.post("/admin/tags", zValidator("form", tagSchema), async (c) => {
   const db = c.get("db");
   const data = c.req.valid("form");
+  const slug = data.slug.trim().toLowerCase();
+  const [dup] = await db
+    .select({ id: tags.id })
+    .from(tags)
+    .where(eq(tags.slug, slug))
+    .limit(1);
+  if (dup) {
+    return c.redirect("/admin/tags?err=slug");
+  }
   await db.insert(tags).values({
     id: crypto.randomUUID(),
     name: data.name.trim(),
-    slug: data.slug.trim().toLowerCase(),
+    slug,
   });
   return c.redirect("/admin/tags");
 });

@@ -1,6 +1,7 @@
 import { SiteNav } from "@client/widgets/site-nav";
 import { Link } from "@inertiajs/react";
 import type { AuthProps } from "@shared/auth";
+import { formatCalendarDate, formatCalendarDateTime } from "@shared/formatDate";
 
 export default function Release(
   props: AuthProps & {
@@ -43,7 +44,7 @@ export default function Release(
             </div>
             <div className="mt-2 text-xs text-neutral-600">
               Discogs release {r.discogsId} · cached{" "}
-              {new Date(r.cachedAt).toLocaleString()}
+              {formatCalendarDateTime(r.cachedAt)}
             </div>
           </div>
         </div>
@@ -65,7 +66,7 @@ export default function Release(
                   </Link>
                   {rev.publishedAt ? (
                     <div className="text-xs text-neutral-500">
-                      {new Date(rev.publishedAt).toLocaleDateString()}
+                      {formatCalendarDate(rev.publishedAt)}
                     </div>
                   ) : null}
                 </li>

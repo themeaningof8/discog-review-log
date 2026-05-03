@@ -1,6 +1,7 @@
 import { SiteNav } from "@client/widgets/site-nav";
 import { Link } from "@inertiajs/react";
 import type { AuthProps } from "@shared/auth";
+import { formatCalendarDate } from "@shared/formatDate";
 import DOMPurify from "dompurify";
 
 export default function Review(
@@ -44,7 +45,7 @@ export default function Review(
         <div className="mt-2 text-sm text-neutral-500">
           by {review.authorName}
           {review.publishedAt
-            ? ` · ${new Date(review.publishedAt).toLocaleDateString()}`
+            ? ` · ${formatCalendarDate(review.publishedAt)}`
             : null}{" "}
           · <span className="uppercase">{review.status}</span>
         </div>

@@ -18,6 +18,7 @@ export default function New(
       coverUrl: string | null;
     } | null;
     releaseId: number | null;
+    allTags: { id: string; name: string }[];
   },
 ) {
   const [bodyHtml, setBodyHtml] = useState("<p></p>");
@@ -104,6 +105,23 @@ export default function New(
                 value={props.releaseId ?? ""}
               />
               <input type="hidden" name="bodyHtml" value={bodyHtml} />
+
+              {props.allTags.length > 0 ? (
+                <fieldset className="space-y-2">
+                  <legend className="text-sm text-neutral-300">Tags</legend>
+                  <div className="flex flex-wrap gap-3">
+                    {props.allTags.map((t) => (
+                      <label
+                        key={t.id}
+                        className="flex items-center gap-2 text-sm text-neutral-300"
+                      >
+                        <input type="checkbox" name="tagIds" value={t.id} />
+                        {t.name}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+              ) : null}
 
               <div className="grid grid-cols-3 gap-3">
                 <label className="text-sm text-neutral-300">

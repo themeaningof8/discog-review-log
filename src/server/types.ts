@@ -3,6 +3,8 @@ export type Env = {
   SESSIONS: KVNamespace;
   DISCOGS_USER_TOKEN: string;
   APP_SECRET: string;
+  /** If set, required (via `X-Setup-Secret` header) for `/setup/first-invitation` on non-localhost hosts. */
+  SETUP_SECRET?: string;
 };
 
 export type SessionUser = {

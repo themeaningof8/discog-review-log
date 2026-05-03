@@ -52,7 +52,14 @@ export default function AdminUsers(
                 },
               });
               if (!res.ok) {
-                setInviteUrl(`Error: ${res.status}`);
+                let message = `HTTP ${res.status}`;
+                try {
+                  const body = (await res.json()) as { error?: string };
+                  if (body.error) message = body.error;
+                } catch {
+                  /* ignore non-JSON body */
+                }
+                setInviteUrl(`Error: ${message}`);
                 return;
               }
               const data = (await res.json()) as { inviteUrl: string };

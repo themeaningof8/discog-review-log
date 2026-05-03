@@ -1,6 +1,7 @@
 import { SiteNav } from "@client/widgets/site-nav";
 import { Link } from "@inertiajs/react";
 import type { AuthProps } from "@shared/auth";
+import { formatCalendarDate } from "@shared/formatDate";
 
 type Item = {
   reviewId: string;
@@ -48,7 +49,7 @@ export default function Home(props: AuthProps & { items: Item[] }) {
                   <div className="mt-1 text-xs text-neutral-500">
                     by {item.authorName}
                     {item.publishedAt
-                      ? ` · ${new Date(item.publishedAt).toLocaleDateString()}`
+                      ? ` · ${formatCalendarDate(item.publishedAt)}`
                       : null}
                   </div>
                 </div>

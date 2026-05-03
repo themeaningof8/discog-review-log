@@ -5,6 +5,7 @@ import type { AuthProps } from "@shared/auth";
 export default function AdminTags(
   props: AuthProps & {
     tags: { id: string; slug: string; name: string }[];
+    error: string | null;
   },
 ) {
   return (
@@ -20,6 +21,12 @@ export default function AdminTags(
             ← Admin
           </Link>
         </div>
+
+        {props.error ? (
+          <p className="mt-6 rounded-md border border-red-900 bg-red-950 px-3 py-2 text-sm text-red-200">
+            {props.error}
+          </p>
+        ) : null}
 
         <Form
           action="/admin/tags"

@@ -1,6 +1,7 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": [
+    "src/server/worker.ts",
     "src/client/app/index.tsx",
     "src/client/pages/**/*.tsx",
     "src/client/features/review-editor/index.ts",
