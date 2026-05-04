@@ -36,8 +36,8 @@ jobs:
       - name: Biome (CI)
         run: pnpm run check:ci
 
-      - name: Steiger (FSD — src/client)
-        run: pnpm run steiger
+      - name: Dependency cruiser (architecture rules)
+        run: pnpm run depcruise
 
       - name: Typecheck
         run: pnpm run typecheck

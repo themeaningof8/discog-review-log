@@ -9,8 +9,8 @@
 ## Rules
 
 - Use **pnpm** only for installs (`packageManager` + Corepack when present). Do not switch to npm/yarn without explicit instruction.
-- Implement **Biome, Lefthook, Vitest + fast-check, knip, GitHub Actions** per the harness design spec when writing implementation code.
-- **FSD / Steiger** は **`src/client` のみ**（`src/client/README.md`）。サーバーは FSD にしない。
+- Implement **Biome, Lefthook, Vitest + fast-check, knip, dependency-cruiser, GitHub Actions** per the harness design spec when writing implementation code.
+- アーキテクチャルールは **dependency-cruiser**（`.dependency-cruiser.cjs`）で強制する。FSD / Steiger は使用しない。
 
 ## Cursor
 
