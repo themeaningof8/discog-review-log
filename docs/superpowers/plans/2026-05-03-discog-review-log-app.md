@@ -239,7 +239,6 @@ Adapt upstream [`app/ssr.tsx`](https://github.com/yusukebe/hono-inertia-example/
 
 Adapt upstream [`app/root-view.tsx`](https://github.com/yusukebe/hono-inertia-example/blob/main/app/root-view.tsx) verbatim except import paths. Export `rootView` as `RootView` from `@hono/inertia`. Include `Link`, `Script`, `ViteClient` from `vite-ssr-components/react`.
 
-
 - **Step 3: Implement `src/server/app.ts`**
 
 ```ts
