@@ -78,7 +78,7 @@ async function replaceReviewTags(db: Db, reviewId: string, tagIds: string[]) {
     .from(tags)
     .where(inArray(tags.id, tagIds));
   const allowed = new Set(existing.map((e) => e.id));
-  const validTagIds = tagIds.filter((tid) => allowed.has(tid));
+  const validTagIds = [...new Set(tagIds)].filter((tid) => allowed.has(tid));
   if (validTagIds.length === 0) return;
   await db
     .insert(reviewTags)
