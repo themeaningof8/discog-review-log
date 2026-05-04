@@ -31,7 +31,7 @@ Stop and run `pnpm run validate` after **Checkpoint A** (scaffold works), **Chec
 | `src/server/ssr.tsx`               | `renderPage` helper pairing vite-ssr-components with client pages (follow upstream example structure) |
 | `src/server/middleware/session.ts` | Parse cookie → KV session → attach `user` to context                                                  |
 | `src/server/middleware/auth.ts`    | Require login / require admin                                                                         |
-| `src/server/lib/password.ts`       | PBKDF2 hash + verify (Web Crypto; Workers-compatible)                                                  |
+| `src/server/lib/password.ts`       | PBKDF2 hash + verify (Web Crypto; Workers-compatible)                                                 |
 | `src/server/lib/sanitizeHtml.ts`   | Wrap `sanitize-html` with allowlist for TipTap output                                                 |
 | `src/server/lib/discogs.ts`        | Fetch `/releases/:id`, map JSON → `Release` row shape                                                 |
 | `src/server/db/schema.ts`          | Drizzle schema (`users`, `invitations`, `releases`, `reviews`, …)                                     |

@@ -16,7 +16,16 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "knip": "knip",
-    "validate": "pnpm run check:ci && pnpm run typecheck && pnpm run test && pnpm run knip"
+    "steiger": "steiger ./src/client",
+    "validate": "pnpm run check:ci && pnpm run steiger && pnpm run typecheck && pnpm run test && pnpm run knip",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "pnpm run build && vite preview",
+    "deploy": "pnpm run build && wrangler deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate:local": "wrangler d1 migrations apply discog-review-log --local",
+    "db:migrate:remote": "wrangler d1 migrations apply discog-review-log --remote"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -25,11 +34,40 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",
+    "@cloudflare/vite-plugin": "1.35.0",
+    "@cloudflare/workers-types": "4.20250505.0",
+    "@feature-sliced/steiger-plugin": "^0.5.7",
+    "@tailwindcss/vite": "4.2.4",
+    "@tiptap/react": "3.13.0",
+    "@tiptap/starter-kit": "3.13.0",
     "@types/node": "25.6.0",
+    "@types/react": "19.2.5",
+    "@types/react-dom": "19.2.3",
+    "@types/sanitize-html": "^2.16.1",
+    "drizzle-kit": "0.31.8",
     "fast-check": "4.7.0",
     "knip": "6.11.0",
     "lefthook": "2.1.6",
+    "steiger": "^0.5.11",
+    "tailwindcss": "4.2.4",
     "typescript": "6.0.3",
-    "vitest": "4.1.5"
+    "vite": "8.0.10",
+    "vite-ssr-components": "0.6.1",
+    "vitest": "4.1.5",
+    "wrangler": "4.87.0"
+  },
+  "dependencies": {
+    "@hono/inertia": "0.2.0",
+    "@hono/react-renderer": "1.0.1",
+    "@hono/zod-validator": "0.7.6",
+    "@inertiajs/core": "3.0.3",
+    "@inertiajs/react": "3.0.3",
+    "dompurify": "^3.4.2",
+    "drizzle-orm": "0.45.2",
+    "hono": "4.12.16",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "sanitize-html": "2.17.0",
+    "zod": "4.3.6"
   }
 }

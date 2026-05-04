@@ -10,7 +10,7 @@
 
 - Use **pnpm** only for installs (`packageManager` + Corepack when present). Do not switch to npm/yarn without explicit instruction.
 - Implement **Biome, Lefthook, Vitest + fast-check, knip, GitHub Actions** per the harness design spec when writing implementation code.
-- Do **not** add **FSD / Steiger** unless the user updates documentation.
+- **FSD / Steiger** は **`src/client` のみ**（`src/client/README.md`）。サーバーは FSD にしない。
 
 ## Cursor
 

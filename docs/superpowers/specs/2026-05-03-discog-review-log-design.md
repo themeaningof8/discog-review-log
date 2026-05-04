@@ -28,36 +28,42 @@ Discogs API を用いた **音楽レビューログ Web アプリ** を提供す
 
 ### Frontend
 
-| 役割 | 採用 |
-|------|------|
-| UI | React |
+| 役割       | 採用                             |
+| -------- | ------------------------------ |
+| UI       | React                          |
 | SSR ブリッジ | Inertia.js（`@inertiajs/react`） |
-| リッチテキスト | TipTap（ヘッドレス） |
-| スタイリング | Tailwind CSS v4 |
-| ビルド | Vite |
+| リッチテキスト  | TipTap（ヘッドレス）                  |
+| スタイリング   | Tailwind CSS v4                |
+| ビルド      | Vite                           |
+
 
 ### Server
 
-| 役割 | 採用 |
-|------|------|
-| HTTP | Hono |
+
+| 役割      | 採用                        |
+| ------- | ------------------------- |
+| HTTP    | Hono                      |
 | Inertia | `@hono/inertia`（公式ミドルウェア） |
-| ORM | Drizzle ORM |
-| 言語 | TypeScript |
+| ORM     | Drizzle ORM               |
+| 言語      | TypeScript                |
+
 
 ### Infrastructure（Cloudflare・無料枠を前提に設計）
 
-| 役割 | 採用 | 無料枠（目安） |
-|------|------|----------------|
-| ランタイム | Cloudflare Workers | 10 万 req / 日 など |
-| DB | Cloudflare D1（SQLite） | 容量・読取上限に留意 |
-| セッション | Cloudflare KV | 読取上限に留意 |
-| 静的アセット | Cloudflare Pages | プロジェクト方針に合わせて配信 |
+
+| 役割     | 採用                    | 無料枠（目安）         |
+| ------ | --------------------- | --------------- |
+| ランタイム  | Cloudflare Workers    | 10 万 req / 日 など |
+| DB     | Cloudflare D1（SQLite） | 容量・読取上限に留意      |
+| セッション  | Cloudflare KV         | 読取上限に留意         |
+| 静的アセット | Cloudflare Pages      | プロジェクト方針に合わせて配信 |
+
 
 ### External API
 
-| 役割 | 採用 |
-|------|------|
+
+| 役割    | 採用                                    |
+| ----- | ------------------------------------- |
 | メタデータ | Discogs API（**User Token** 認証、サーバーのみ） |
 
 ## Repository layout（シングルレポ）
@@ -104,27 +110,29 @@ TipTap を採用。ヘッドレスにより Tailwind v4 で UI を完全にコ�
 
 論理モデル。物理カラム名・索引は Drizzle マイグレーションで確定する。
 
-| テーブル | 用途 |
-|----------|------|
-| `users` | id, name, email, password_hash, role, invited_by, created_at 等 |
-| `invitations` | token, email, expires_at, used_at |
-| `releases` | discogs_id, title, artist, year, label, cover_url, cached_at |
-| `reviews` | id, user_id, release_id, body_html, status, published_at, created_at |
-| `review_scores` | review_id, axis, score（複数軸） |
-| `tags` | id, name, slug |
-| `review_tags` | review_id, tag_id |
+| テーブル            | 用途                                                                   |
+| --------------- | -------------------------------------------------------------------- |
+| `users`         | id, name, email, password_hash, role, invited_by, created_at 等       |
+| `invitations`   | token, email, expires_at, used_at                                    |
+| `releases`      | discogs_id, title, artist, year, label, cover_url, cached_at         |
+| `reviews`       | id, user_id, release_id, body_html, status, published_at, created_at |
+| `review_scores` | review_id, axis, score（複数軸）                                          |
+| `tags`          | id, name, slug                                                       |
+| `review_tags`   | review_id, tag_id                                                    |
+
 
 セッション: **KV のみ**（上記以外にセッションテーブルは置かない）。
 
 ## Roles & permissions
 
-| 操作 | Writer | Admin |
-|------|--------|-------|
-| 自分のレビュー 作成・編集・削除 | ✓ | ✓ |
-| 自分のレビュー 公開 / 下書き切り替え | ✓ | ✓ |
-| 他者のレビュー 編集・削除 | ✗ | ✓ |
-| ユーザー招待・権限変更 | ✗ | ✓ |
-| タグ / ジャンルマスター管理 | ✗ | ✓ |
+| 操作                   | Writer | Admin |
+| -------------------- | ------ | ----- |
+| 自分のレビュー 作成・編集・削除     | ✓      | ✓     |
+| 自分のレビュー 公開 / 下書き切り替え | ✓      | ✓     |
+| 他者のレビュー 編集・削除        | ✗      | ✓     |
+| ユーザー招待・権限変更          | ✗      | ✓     |
+| タグ / ジャンルマスター管理      | ✗      | ✓     |
+
 
 ## Routes（概略）
 
@@ -169,21 +177,25 @@ TipTap を採用。ヘッドレスにより Tailwind v4 で UI を完全にコ�
 
 ## Deferred decisions（実装前に優先度順に確定）
 
-| 項目 | メモ |
-|------|------|
-| 招待メール | **Resend**（無料枠 3,000 通 / 月など）を第一候補。メール必須か、リンク手動共有のみかで実装が変わる。 |
-| カバー画像 | Discogs URL 直参照 vs **R2 キャッシュ**（安定性・規約・コストのトレードオフ）。 |
-| 複数軸スコアの軸定義 | **v1 はコードまたはマスタテーブルで固定軸**とし、可変軸が必要になった時点で別設計。 |
-| 本文サニタイズ実装 | 利用ライブラリ（例: isomorphic-dompurify 等）は実装時に選定し、許可タグ一覧を本リポジトリに文書化する。 |
+| 項目         | メモ                                                              |
+| ---------- | --------------------------------------------------------------- |
+| 招待メール      | **Resend**（無料枠 3,000 通 / 月など）を第一候補。メール必須か、リンク手動共有のみかで実装が変わる。    |
+| カバー画像      | Discogs URL 直参照 vs **R2 キャッシュ**（安定性・規約・コストのトレードオフ）。             |
+| 複数軸スコアの軸定義 | **v1 はコードまたはマスタテーブルで固定軸**とし、可変軸が必要になった時点で別設計。                   |
+| 本文サニタイズ実装  | 利用ライブラリ（例: isomorphic-dompurify 等）は実装時に選定し、許可タグ一覧を本リポジトリに文書化する。 |
+
 
 ## Risks & mitigations
 
-| リスク | 緩和 |
-|--------|------|
-| Discogs レート制限 | キャッシュ・ID 直接入力方針・必要ならバックオフ |
-| HTML 由来 XSS | サニタイズ必須・表示時のエスケープ方針の監査 |
+
+| リスク              | 緩和                            |
+| ---------------- | ----------------------------- |
+| Discogs レート制限    | キャッシュ・ID 直接入力方針・必要ならバックオフ     |
+| HTML 由来 XSS      | サニタイズ必須・表示時のエスケープ方針の監査        |
 | Workers / D1 の制約 | クエリとインデックス設計、N+1 回避、無料枠モニタリング |
+
 
 ## Approval
 
 本書は 2026-05-03 時点の合意（技術選定ドキュメントおよびレビュー反映）に基づく。変更時は本ファイルを更新し、`docs/tech-stack.md` と整合させる。
+
