@@ -62,7 +62,6 @@
     "@hono/zod-validator": "0.7.6",
     "@inertiajs/core": "3.0.3",
     "@inertiajs/react": "3.0.3",
-    "dompurify": "^3.4.2",
     "drizzle-orm": "0.45.2",
     "hono": "4.12.16",
     "react": "19.2.5",

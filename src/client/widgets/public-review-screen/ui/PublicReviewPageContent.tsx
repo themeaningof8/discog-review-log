@@ -1,6 +1,6 @@
 import { Link } from "@inertiajs/react";
 import { formatCalendarDate } from "@shared/formatDate";
-import DOMPurify from "dompurify";
+import { sanitizeReviewHtml } from "@shared/sanitizeReviewHtml";
 
 export const PUBLIC_REVIEW_MAIN_CLASS =
   "mx-auto max-w-3xl px-4 py-10 font-sans";
@@ -24,10 +24,7 @@ export type PublicReviewPageContentProps = {
 
 export function PublicReviewPageContent(props: PublicReviewPageContentProps) {
   const { review, release } = props;
-  const safeHtml =
-    typeof globalThis.window === "undefined"
-      ? props.review.bodyHtml
-      : DOMPurify.sanitize(props.review.bodyHtml);
+  const safeHtml = sanitizeReviewHtml(props.review.bodyHtml);
 
   return (
     <>
