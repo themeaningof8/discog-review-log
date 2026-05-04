@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { sanitizeReviewHtml } from "./sanitizeHtml.js";
+import { sanitizeReviewHtml } from "./sanitizeReviewHtml.js";
 
 describe("sanitizeReviewHtml", () => {
   it("drops script tags", () => {

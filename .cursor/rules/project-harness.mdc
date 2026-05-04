@@ -16,6 +16,7 @@ Before changing tooling or layout, read **`docs/tech-stack.md`** and **`docs/har
 ## Scope notes
 
 - **Steiger** runs on **`src/client`** (`pnpm run steiger`). **`src/server`** is **not** modeled as FSD slices.
+- **Client FSD / pages vs widgets / granularity:** follow **`src/client/README.md`** (sections on Pages vs UI slices and widget granularity).
 - Prefer matching scripts and CI order documented in **`docs/superpowers/specs/2026-05-03-harness-and-tooling-design.md`** once implemented.
 
 ## Edits
