@@ -30,7 +30,9 @@
   },
   "overrides": [
     {
-      "includes": ["src/client/pages/Public/Review.tsx"],
+      "includes": [
+        "src/client/widgets/public-review-screen/ui/PublicReviewPageContent.tsx"
+      ],
       "linter": {
         "rules": {
           "security": {
