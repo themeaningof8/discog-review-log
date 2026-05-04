@@ -251,7 +251,9 @@ reviewRoutes.post(
     };
     await db
       .insert(reviewScores)
-      .values(SCORE_AXES.map((axis) => ({ reviewId, axis, score: scoreMap[axis] })));
+      .values(
+        SCORE_AXES.map((axis) => ({ reviewId, axis, score: scoreMap[axis] })),
+      );
     await replaceReviewTags(db, reviewId, data.tagIds);
     return c.redirect(`/reviews/${reviewId}/edit`);
   },
@@ -353,7 +355,13 @@ reviewRoutes.post(
     };
     await db
       .insert(reviewScores)
-      .values(SCORE_AXES.map((axis) => ({ reviewId: id, axis, score: scoreMap[axis] })))
+      .values(
+        SCORE_AXES.map((axis) => ({
+          reviewId: id,
+          axis,
+          score: scoreMap[axis],
+        })),
+      )
       .onConflictDoUpdate({
         target: [reviewScores.reviewId, reviewScores.axis],
         set: { score: sql`excluded.score` },
