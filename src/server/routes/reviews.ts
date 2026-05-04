@@ -70,19 +70,25 @@ const reviewUpdateSchema = z.object({
   tagIds: formTagIds,
 });
 
+const REVIEW_TAGS_BULK_CHUNK = 400;
+
 async function replaceReviewTags(db: Db, reviewId: string, tagIds: string[]) {
   await db.delete(reviewTags).where(eq(reviewTags.reviewId, reviewId));
   if (tagIds.length === 0) return;
+  const uniqueTagIds = [...new Set(tagIds)];
   const existing = await db
     .select({ id: tags.id })
     .from(tags)
-    .where(inArray(tags.id, tagIds));
+    .where(inArray(tags.id, uniqueTagIds));
   const allowed = new Set(existing.map((e) => e.id));
-  const validTagIds = [...new Set(tagIds)].filter((tid) => allowed.has(tid));
+  const validTagIds = uniqueTagIds.filter((tid) => allowed.has(tid));
   if (validTagIds.length === 0) return;
-  await db
-    .insert(reviewTags)
-    .values(validTagIds.map((tagId) => ({ reviewId, tagId })));
+  for (let i = 0; i < validTagIds.length; i += REVIEW_TAGS_BULK_CHUNK) {
+    const chunk = validTagIds.slice(i, i + REVIEW_TAGS_BULK_CHUNK);
+    await db
+      .insert(reviewTags)
+      .values(chunk.map((tagId) => ({ reviewId, tagId })));
+  }
 }
 
 const previewSchema = z.object({
