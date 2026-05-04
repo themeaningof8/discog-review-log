@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { parseDiscogsReleaseId } from "@shared/discogsReleaseId";
 import { DEFAULT_SCORE, SCORE_AXES, type ScoreAxis } from "@shared/scoreAxes";
-import { asc, eq, inArray } from "drizzle-orm";
+import { asc, eq, inArray, sql } from "drizzle-orm";
 import { Hono } from "hono";
 import * as z from "zod";
 import type { Db } from "../db/client";
@@ -78,10 +78,11 @@ async function replaceReviewTags(db: Db, reviewId: string, tagIds: string[]) {
     .from(tags)
     .where(inArray(tags.id, tagIds));
   const allowed = new Set(existing.map((e) => e.id));
-  for (const tid of tagIds) {
-    if (!allowed.has(tid)) continue;
-    await db.insert(reviewTags).values({ reviewId, tagId: tid });
-  }
+  const validTagIds = tagIds.filter((tid) => allowed.has(tid));
+  if (validTagIds.length === 0) return;
+  await db
+    .insert(reviewTags)
+    .values(validTagIds.map((tagId) => ({ reviewId, tagId })));
 }
 
 const previewSchema = z.object({
@@ -248,13 +249,9 @@ reviewRoutes.post(
       lyrics: data.score_lyrics,
       artwork: data.score_artwork,
     };
-    for (const axis of SCORE_AXES) {
-      await db.insert(reviewScores).values({
-        reviewId,
-        axis,
-        score: scoreMap[axis],
-      });
-    }
+    await db
+      .insert(reviewScores)
+      .values(SCORE_AXES.map((axis) => ({ reviewId, axis, score: scoreMap[axis] })));
     await replaceReviewTags(db, reviewId, data.tagIds);
     return c.redirect(`/reviews/${reviewId}/edit`);
   },
@@ -354,16 +351,13 @@ reviewRoutes.post(
       lyrics: data.score_lyrics,
       artwork: data.score_artwork,
     };
-    for (const axis of SCORE_AXES) {
-      const score = scoreMap[axis];
-      await db
-        .insert(reviewScores)
-        .values({ reviewId: id, axis, score })
-        .onConflictDoUpdate({
-          target: [reviewScores.reviewId, reviewScores.axis],
-          set: { score },
-        });
-    }
+    await db
+      .insert(reviewScores)
+      .values(SCORE_AXES.map((axis) => ({ reviewId: id, axis, score: scoreMap[axis] })))
+      .onConflictDoUpdate({
+        target: [reviewScores.reviewId, reviewScores.axis],
+        set: { score: sql`excluded.score` },
+      });
     await replaceReviewTags(db, id, data.tagIds);
     return c.redirect(`/reviews/${id}/edit`);
   },
