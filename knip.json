@@ -8,9 +8,9 @@
       "project": ["src/**/*.ts", "index.ts"]
     },
     "apps/web": {
-      "entry": ["astro.config.mjs", "postcss.config.mjs"],
+      "entry": ["astro.config.mjs"],
       "project": ["src/**/*.astro", "src/**/*.tsx", "src/**/*.css"],
-      "ignoreDependencies": ["@tailwindcss/postcss", "tailwindcss"]
+      "ignoreDependencies": ["tailwindcss"]
     }
   }
 }

@@ -17,7 +17,7 @@ Living notes for **tooling and runtime intent**. Update when decisions change.
 | Unused code / deps | **knip**                                    |
 | CI                 | GitHub Actions                              |
 | API（予定）        | Elysia on Bun                               |
-| フロント           | Astro + SolidJS + **Tailwind v4**（`@tailwindcss/postcss` — Astro 6 / Vite 8 では Vite プラグインより安定）・Biome `css.parser.tailwindDirectives` |
+| フロント           | Astro + SolidJS + **Tailwind v4**（`@tailwindcss/vite`）・ルート `overrides.vite: ^7.3.2` で Vite 8 持ち上げを防ぐ（[withastro/astro#16542](https://github.com/withastro/astro/issues/16542)）・Biome `css.parser.tailwindDirectives` |
 
 
 ## Application runtime
