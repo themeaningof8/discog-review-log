@@ -9,4 +9,6 @@ if (!existsSync(".git")) {
   process.exit(0);
 }
 
-execFileSync("pnpm", ["exec", "lefthook", "install"], { stdio: "inherit" });
+execFileSync(process.execPath, ["x", "lefthook", "install"], {
+  stdio: "inherit",
+});
