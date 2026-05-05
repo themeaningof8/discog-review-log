@@ -30,6 +30,26 @@ bun run dev:web
 
 開発サーバーでトップページの Solid island（カウンター）を確認できる。
 
+## ローカルで front ↔ API（フェーズ 5）
+
+1. ターミナル A で API を起動する。
+
+   ```bash
+   bun run dev:api
+   ```
+
+   `http://127.0.0.1:3000/health` が `{"status":"ok"}` を返すこと。
+
+2. ターミナル B で Astro を起動する。
+
+   ```bash
+   bun run dev:web
+   ```
+
+3. ブラウザで Astro の URL（通常 `http://localhost:4321`、表示はターミナルに従う）を開き、ページ下部の **「API /health（dev プロキシ）」** に `{"status":"ok"}` が表示されればよい。
+
+   フロントは `fetch("/api/health")` だけを行い、Vite の `server.proxy` が `/api` を API サーバへ転送する（CORS は不要）。
+
 ## Troubleshooting
 
 - **Bun version mismatch**  

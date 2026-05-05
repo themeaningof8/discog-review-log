@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Counter from "../components/Counter.tsx";
+import HealthStatus from "../components/HealthStatus.tsx";
 ---
 
 <html lang="ja">
@@ -16,5 +17,7 @@ import Counter from "../components/Counter.tsx";
 		<h1>discog-review-log</h1>
 		<p>Solid island（フェーズ 3 の最小例）:</p>
 		<Counter client:load />
+		<hr class="my-8 border-neutral-200 dark:border-neutral-700" />
+		<HealthStatus client:load />
 	</body>
 </html>

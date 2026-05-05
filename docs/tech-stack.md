@@ -18,6 +18,7 @@ Living notes for **tooling and runtime intent**. Update when decisions change.
 | CI                 | GitHub Actions                              |
 | API（予定）        | Elysia on Bun                               |
 | フロント           | Astro + SolidJS + **Tailwind v4**（`@tailwindcss/vite`）・ルート `overrides.vite: ^7.3.2` で Vite 8 持ち上げを防ぐ（[withastro/astro#16542](https://github.com/withastro/astro/issues/16542)）・Biome `css.parser.tailwindDirectives` |
+| ローカル dev 結線 | Astro（Vite）`server.proxy`: ブラウザは `/api/*` のみ使用 → `http://127.0.0.1:3000/*`（フェーズ 5・CORS 不要） |
 
 
 ## Application runtime
