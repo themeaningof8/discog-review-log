@@ -2,13 +2,13 @@
 
 ## First reads
 
-- `docs/tech-stack.md` — stack and phase (harness-first; **no Vite** unless specs change).
+- `docs/tech-stack.md` — stack and phase (harness-first; **Vite（Astro 内蔵）を採用** — ロードマップ `2026-05-05` 参照).
 - `docs/harness-decisions.md` — Node 22, pnpm pins, CI/GitHub defaults, Biome/knip/hooks policy.
 - `docs/superpowers/specs/` — design specs; naming `YYYY-MM-DD-<topic>-design.md`.
 
 ## Rules
 
-- Use **pnpm** only for installs (`packageManager` + Corepack when present). Do not switch to npm/yarn without explicit instruction.
+- Use **Bun** for installs (`bun install`). pnpm はフェーズ 1 完了後に廃止。npm/yarn/pnpm を新たに使わないこと。
 - Implement **Biome, Lefthook, Vitest + fast-check, knip, GitHub Actions** per the harness design spec when writing implementation code.
 - Do **not** add **FSD / Steiger** unless the user updates documentation.
 
