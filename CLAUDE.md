@@ -3,7 +3,7 @@
 ## First reads
 
 - `docs/tech-stack.md` — stack and phase (harness-first; **Vite（Astro 内蔵）を採用** — ロードマップ `2026-05-05` 参照).
-- `docs/harness-decisions.md` — Node 22, pnpm pins, CI/GitHub defaults, Biome/knip/hooks policy.
+- `docs/harness-decisions.md` — Node 22, Bun 移行方針（pnpm → フェーズ 1 で廃止）, CI/GitHub defaults, Biome/knip/hooks policy.
 - `docs/superpowers/specs/` — design specs; naming `YYYY-MM-DD-<topic>-design.md`.
 
 ## Rules
