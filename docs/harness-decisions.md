@@ -10,6 +10,8 @@
 | `engines` | `package.json` に `"node": ">=22 <23"` など、上記と整合させる |
 | pnpm | **Corepack** + `package.json` の `packageManager` に **フルバージョン**（例 `pnpm@10.x.x` — 導入時に `pnpm -v` で確定）。ローカルでは `corepack prepare pnpm@<pin> --activate` を README に合わせて実行する |
 | ロックファイル | `pnpm-lock.yaml` をコミットし、CI は `--frozen-lockfile` |
+| Bun | **Bun 第一**（フェーズ 1 以降）。バージョンは `packageManager` フィールドに pin。ロックファイルは `bun.lockb` |
+| パッケージマネージャ移行 | フェーズ 1 で pnpm → Bun へ完全移行。移行完了後は `pnpm-lock.yaml` を削除 |
 
 ## Git / GitHub
 
@@ -52,6 +54,7 @@
 ## アーキテクチャ（見送り中）
 
 - **FSD / Steiger** — 現時点では導入しない。UI 方針が固まったら別途検討。
+- **Vite（Astro 内蔵）** — ロードマップ `2026-05-05` にて意図的に採用。従来の「no Vite」方針は本ロードマップで上書き。フロント導入はフェーズ 3 以降。
 
 ## 関連ドキュメント
 

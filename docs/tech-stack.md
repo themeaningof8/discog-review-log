@@ -2,20 +2,22 @@
 
 Living notes for **tooling and runtime intent**. Update when decisions change.
 
-## Current phase: harness only
+## Current phase: harness → フルスタック移行中
 
-Quality and automation first; **no browser bundler (Vite 等) in this phase.**
+ハーネスを維持しつつ、**Bun workspace + Elysia API + Astro フロント**を段階的に追加。
+ロードマップ: `docs/superpowers/specs/2026-05-05-full-stack-incremental-roadmap-design.md`
 
-
-| Area               | Choice                                   |
-| ------------------ | ---------------------------------------- |
-| Package manager    | pnpm                                     |
-| Language           | TypeScript (`strict`)                    |
-| Format / lint      | Biome                                    |
-| Git hooks          | Lefthook                                 |
-| Tests              | Vitest + **fast-check** (property-based) |
-| Unused code / deps | **knip**                                 |
-| CI                 | GitHub Actions                           |
+| Area               | Choice                                      |
+| ------------------ | ------------------------------------------- |
+| Package manager    | **Bun**（フェーズ 1〜、旧: pnpm）           |
+| Language           | TypeScript (`strict`)                       |
+| Format / lint      | Biome                                       |
+| Git hooks          | Lefthook                                    |
+| Tests              | Vitest + **fast-check**（root）、**bun:test**（apps/api〜） |
+| Unused code / deps | **knip**                                    |
+| CI                 | GitHub Actions                              |
+| API（予定）        | Elysia on Bun                               |
+| フロント（予定）   | Astro + SolidJS + Tailwind v4               |
 
 
 ## Application runtime
@@ -26,7 +28,7 @@ Quality and automation first; **no browser bundler (Vite 等) in this phase.**
 
 Pinned versions, CI policy, Dependabot, and hook behavior: **[docs/harness-decisions.md](./harness-decisions.md)** (update when those change).
 
-Summary: **Node 22 LTS**, **pnpm via Corepack + `packageManager` + `corepack prepare`**, default branch **main**, Biome + knip + tests in CI. Lefthook on pre-commit; **`prepare` installs hooks only when not in CI and `.git` exists**.
+Summary: **Bun**（パッケージマネージャ + ランタイム）、**TypeScript strict**、Biome + knip + tests in CI。Lefthook on pre-commit。フェーズ 1 以降は `bun install` / `bun run validate`。
 
 ## Specs and plans
 
