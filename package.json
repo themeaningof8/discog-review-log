@@ -22,6 +22,7 @@
     "dev:api": "bun run --cwd apps/api dev",
     "dev:web": "bun run --cwd apps/web dev",
     "build:web": "bun run --cwd apps/web build",
+    "deploy:web:pages": "bun run build:web && bunx wrangler pages deploy apps/web/dist --project-name=$CLOUDFLARE_PAGES_PROJECT --branch=main",
     "validate": "bun run check:ci && bun run typecheck && bun run test && bun run build:web && bun run knip"
   },
   "devDependencies": {

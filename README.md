@@ -50,6 +50,37 @@ bun run dev:web
 
    フロントは `fetch("/api/health")` だけを行い、Vite の `server.proxy` が `/api` を API サーバへ転送する（CORS は不要）。
 
+## フロント本番デプロイ（フェーズ 7 / Cloudflare Pages）
+
+1. Cloudflare にログイン（初回のみ）。
+
+   ```bash
+   bunx wrangler login
+   ```
+
+2. Pages プロジェクト名を環境変数に設定する（例: `discog-review-log-web`）。
+
+   ```bash
+   export CLOUDFLARE_PAGES_PROJECT="discog-review-log-web"
+   ```
+
+3. プロジェクトが未作成なら作成する（初回のみ）。
+
+   ```bash
+   bunx wrangler pages project create "$CLOUDFLARE_PAGES_PROJECT"
+   ```
+
+4. デプロイする。
+
+   ```bash
+   bun run deploy:web:pages
+   ```
+
+5. 出力された `https://<project>.pages.dev` を開き、トップページが表示されることを確認する。
+
+6. 確認後、公開 URL をここに記録する。
+   - pages.dev URL: `https://discog-review-log-web.pages.dev`
+
 ## Troubleshooting
 
 - **Bun version mismatch**  
