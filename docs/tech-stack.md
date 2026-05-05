@@ -17,7 +17,7 @@ Living notes for **tooling and runtime intent**. Update when decisions change.
 | Unused code / deps | **knip**                                    |
 | CI                 | GitHub Actions                              |
 | API（予定）        | Elysia on Bun                               |
-| フロント           | Astro + SolidJS（フェーズ 3 導入済み）・Tailwind v4 はフェーズ 4 |
+| フロント           | Astro + SolidJS + **Tailwind v4**（`@tailwindcss/postcss` — Astro 6 / Vite 8 では Vite プラグインより安定）・Biome `css.parser.tailwindDirectives` |
 
 
 ## Application runtime

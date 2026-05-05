@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@astrojs/solid-js": "^6.0.1",
+    "@tailwindcss/postcss": "^4.2.4",
     "astro": "^6.2.2",
-    "solid-js": "^1.9.12"
+    "solid-js": "^1.9.12",
+    "tailwindcss": "^4.2.4"
   }
 }
