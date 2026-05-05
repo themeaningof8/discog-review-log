@@ -68,7 +68,7 @@
 /                        ← root（workspace ルート）
 ├── package.json         ← "workspaces": ["apps/*"] を追加
 ├── bun.lockb            ← Bun のバイナリ lockfile（pnpm-lock.yaml を置き換え）
-├── bunfig.toml          ← Bun の設定ファイル（任意、frozen-lockfile 等）
+├── bunfig.toml          ← Bun の設定ファイル（`--frozen-lockfile` を CI のみ渡すなら不要。CI フラグで代替する場合は作成しない）
 ├── apps/
 │   ├── web/
 │   │   └── package.json ← name: "@discog/web"、スクリプト placeholder のみ
@@ -214,11 +214,21 @@ console.log("API running at http://localhost:3000");
 }
 ```
 
+### CI への組み込み
+
+フェーズ 1 で移行済みの `.github/workflows/ci.yml` に `apps/api` のテストステップを追加する：
+
+```yaml
+- name: Test (api)
+  run: bun test
+  working-directory: apps/api
+```
+
 ### 完了の定義
 
 - `apps/api` 内で `bun test` を実行してテストが通る
 - サーバプロセスを起動しなくてもテストが完結している
-- root の CI ジョブまたは `apps/api` の専用ジョブで緑になる
+- CI の `Test (api)` ステップが緑になる
 
 ### やらないこと
 
