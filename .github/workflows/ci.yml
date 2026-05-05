@@ -39,5 +39,9 @@ jobs:
         run: bun test src
         working-directory: apps/api
 
+      - name: Build (web)
+        run: bun run build
+        working-directory: apps/web
+
       - name: Knip
         run: bun run knip

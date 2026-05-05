@@ -18,9 +18,17 @@ Git hooks (Lefthook) are installed automatically via the `prepare` script.
 bun run validate
 ```
 
-Runs Biome (`ci` mode), TypeScript `noEmit`, Vitest, and knip — same gates as CI.
+Runs Biome (`ci` mode), TypeScript `noEmit`, Vitest, Astro `apps/web` build, and knip — same gates as CI.
 
-Individual scripts: `bun run check`, `bun run check:ci`, `bun run typecheck`, `bun run test`, `bun run knip`.
+Individual scripts: `bun run check`, `bun run check:ci`, `bun run typecheck`, `bun run test`, `bun run build:web`, `bun run knip`.
+
+## Web app (Astro + Solid)
+
+```bash
+bun run dev:web
+```
+
+開発サーバーでトップページの Solid island（カウンター）を確認できる。
 
 ## Troubleshooting
 

@@ -16,7 +16,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "knip": "knip",
-    "validate": "bun run check:ci && bun run typecheck && bun run test && bun run knip"
+    "dev:web": "bun run --cwd apps/web dev",
+    "build:web": "bun run --cwd apps/web build",
+    "validate": "bun run check:ci && bun run typecheck && bun run test && bun run build:web && bun run knip"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.14",

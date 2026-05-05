@@ -6,6 +6,10 @@
     "apps/api": {
       "entry": ["index.ts"],
       "project": ["src/**/*.ts", "index.ts"]
+    },
+    "apps/web": {
+      "entry": ["astro.config.mjs"],
+      "project": ["src/**/*.astro", "src/**/*.tsx"]
     }
   }
 }
