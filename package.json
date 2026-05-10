@@ -33,7 +33,7 @@
     ]
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.14",
+    "@biomejs/biome": "2.4.15",
     "@cloudflare/vite-plugin": "1.35.0",
     "@cloudflare/workers-types": "4.20250505.0",
     "@feature-sliced/steiger-plugin": "^0.5.7",
