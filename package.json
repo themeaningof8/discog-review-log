@@ -59,7 +59,7 @@
   "dependencies": {
     "@hono/inertia": "0.2.0",
     "@hono/react-renderer": "1.0.1",
-    "@hono/zod-validator": "0.7.6",
+    "@hono/zod-validator": "0.8.0",
     "@inertiajs/core": "3.0.3",
     "@inertiajs/react": "3.0.3",
     "dompurify": "^3.4.2",
